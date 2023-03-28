@@ -78,8 +78,8 @@ const chartSeries = ref([
 </script>
 
 <template>
-  <div class="flex flex-col gap-10 h-screen w-screen bg-gray-100 p-8">
-    <div class="">
+  <div class="flex flex-col gap-10 h-screen w-screen bg-gray-100 p-8 px-40">
+    <div>
       <h1 class="text-2xl font-semibold">Photoresistor realtime measurement</h1>
     </div>
     <div class="flex gap-10 bg-white shadow-md w-full h-2/3 p-6">
