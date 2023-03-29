@@ -31,21 +31,61 @@
         <p>Pri iskanju problema, ki bi ga skozi pripravo seminarske naloge poskusil rešiti, sem se
           osrdotočil predvsem na uporabo čimveč komponent, ki so bili del študijskega kit-a, prav tako, pa sem želel
           dodati nekoliko več kompleksnosti v sami zasnovi sistema in prinazoriti strukturo kontrolnega sistema.</p>
-        <p>Rešitev predstavlja uporabo fotoresistorja kot osrednjega elementa celotne zasnove, katerega meritve in
-          spremembe se v realnem času prikazujejo na spletnem vmesniku, v obliki grafa, poleg katerega je mogoče videti
-          stanje sistema ter gumbe, s katerimi se lahko delovanje sistema zaustavi ali pa se prižge pomožno LED dioda.
+        <p>Pripravljena rešitev predstavlja uporabo fotoupornika kot osrednjega elementa celotne zasnove, katerega
+          meritve in spremembe se v realnem času prikazujejo na spletnem vmesniku, v obliki grafa, poleg katerega je
+          mogoče videti stanje sistema ter gumbe, s katerimi se lahko delovanje sistema zaustavi ali pa se prižge
+          pomožno LED dioda.
         </p>
       </div>
     </div>
     <div>
       <h1 class="text-lg font-semibold mt-4">Zasnova sistema in rešitev</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil est ipsam harum repellendus maxime
-        minima ducimus nesciunt id delectus praesentium excepturi, et dolor libero eos sapiente aperiam quas! Aperiam!
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum obcaecati, necessitatibus cumque perferendis
-        inventore esse praesentium ex, voluptas et deleniti odio molestias doloribus minus ut consectetur corrupti
-        soluta officia fuga?Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatem numquam modi id
-        odio corporis animi aliquam veniam, maxime eius nihil adipisci, incidunt excepturi ex enim aspernatur odit
-        commodi libero!</p>
+      <p>Osrednja komponento celotnega sistema prdstavlja krmilnik Arduino UNO, s pomočjo katerega lahko upravljamo vse
+        nanj povezano elemente. V mojem primeru sta nanj povezana dva protoboarda, nanj pa so priklopljeni različni
+        elementi. Cilj zasnove rešitve je bil vzpostaviti sistem zajemanja meritev fotouporabnika preko spletnega
+        vtičnika in prikaz podatkov na grafu v realnem času, hkrati pa omogočiti izklop sistema preko tipke ali preko
+        gumba, ki je umeščen na spletnem vmesniku. Tako je na enem protoboardu umeščena zelena LED dioda, ki signalizira
+        ali je sistem aktiven ter ali se podatki s pomočjo fotoupornika zajemajo in posredujejo preko spletnega
+        vtičnika. Fotoupornik je umeščen na enakem protoboardu, poleg katerega pa je tudi tipka za vklop/izklop. Pred
+        samo LED diodo ter fotoupornikom sta nameščena upornika z uporom 330 Ω.</p>
+      <p>Na drugem protoboardu je nameščena pomožna LED dioda, ki je tam v namen demonstraciji spremembe meritev
+        fotoupornika in jo lahko prav tako vklapljamo ter izklapljamo s pomočjo tipke, ki je del enakega protoboarda.
+        Tudi v tem primeru je med obema elementoma nameščen upornik z uporom 330 Ω.</p>
+      <p class="mt-4">Na spodnji sliki je prikazana sestava celotnega sistema, na kateri so vidni vsi posamezni elementi
+        ter logika povezovanja med njimi ter samim krmilnikom Arduino UNO.</p>
+      <img class="mt-4" src="https://i.imgur.com/3MQzMK7.png" />
+      <span class="text-sm text-gray-500 italic">Sestava celotnega sistema</span>
+      <p class="mt-4">Upravljanje celotnega sistema poteka preko krmilnika Arduino UNO, na katerem se poganja programska
+        koda napisana v programskem jeziku JavaScript. Ciljanje posameznih elementov sestavljenega sistema sem si
+        poenostavil z uporabo JavaScript knjižnice <i>johnny-five</i>. Poleg tega sem v zasnovi rešitve uporabil
+        tehnologijo spletnega vtičnika, s pomočjo katere lahko v realnem času pošiljamo podatke med klientom in
+        strežnikom.</p>
+      <p class="mt-4">Na spodnji sliki je prikazan primer programske kode, ki se izvrši v primeru pritiska na tipko. V
+        tem primeru se stanje sistema spremeni, LED dioda se prižge oz. ugasne in preko spletnega vtičnika se prenese
+        sporočilo o novem stanju v obliki formata JSON.</p>
+      <img class="mt-4" src="https://i.imgur.com/fEMfrEk.png" />
+      <span class="text-sm text-gray-500 italic">Primer programske kode</span>
+      <p class="mt-4">Med Arduino klientom in spletnim vmesnikom, kjer se prikazujejo podatki meritev fotoupornika je
+        postavljen Node.JS strežnik, ki s pomočjo spletnega vtičnika skrbi za prenos podatkov med obema klientoma.
+        Strežnik je bil postavljen v virtualnem okolju Ubuntu operacijskega sistema.</p>
+      <p></p>
+      <p class="mt-4">Spletni vmesnika oz. aplikacija za prikaz podatkov in upravljanje z Arduinom je napisana s pomočjo
+        ogrodja Nuxt v programskem jeziku TypeScript. Zanj sem se odločil na podlagi predhodnega znanja ter
+        poenostavljene oblike dela s tehnologijami kot je npr. spletni vtičnik.</p>
+      <p>Osrednji del spletne aplikacije je graf na katerem se, v kolikor je pripravljen sistem vzpostavljen in aktiven,
+        v realnem prikazuje stanje in meritve fotoupornika. Poleg grafa je na desni strani na voljo informacija o tem,
+        ali je sistem aktiven. V kolikor je sistem aktiven, je prikazana zelena lučka, v nasprotnem primeru je prikazana
+        rdeča lučka in podatki se ne prenašajo. Na vmesnik sta umeščena tudi dva gumba, s pomočjo katerih lahko preko
+        spletne aplikacije aktiviramo oz. deaktiviramo celoten sistem in prenos podatkov, ali pa vklaplamo oz.
+        izklaplajmo pomožno LED diodo.</p>
+      <p class="mt-4">Na spodnji sliki je prikazan vmesnik spletne aplikacije z grafom, ki vsebuje podatke pridobljene s
+        strani meritev fotouporabnika preko spletnega vtičnika.</p>
+      <img class="mt-4" src="https://i.imgur.com/FTomujF.png" />
+      <span class="text-sm text-gray-500 italic">Spletna aplikacija</span>
+      <p class="mt-8">Celotna programska koda rešitve je na voljo znotraj javno dostopnega repozitorja na spletni
+        povezavi <a class="text-blue-500 underline"
+          href="https://github.com/frasza/iot-project">https://github.com/frasza/iot-project</a>. Repozitorij vklučuje
+        kodo Arduino krmilnika, strežnika ter spletne aplikacije.</p>
     </div>
     <div>
       <h1 class="text-lg font-semibold mt-4">Ugotovitve</h1>
@@ -59,13 +99,10 @@
     </div>
     <div>
       <h1 class="text-lg font-semibold mt-4">Viri in literatura</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil est ipsam harum repellendus maxime
-        minima ducimus nesciunt id delectus praesentium excepturi, et dolor libero eos sapiente aperiam quas! Aperiam!
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum obcaecati, necessitatibus cumque perferendis
-        inventore esse praesentium ex, voluptas et deleniti odio molestias doloribus minus ut consectetur corrupti
-        soluta officia fuga?Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatem numquam modi id
-        odio corporis animi aliquam veniam, maxime eius nihil adipisci, incidunt excepturi ex enim aspernatur odit
-        commodi libero!</p>
+      <ul class="list-disc pl-5 mt-4">
+        <li>Javascript knjižnica johnny-five: http://johnny-five.io/</li>
+        <li>Orodje za izris sistema Tinkercad: https://www.tinkercad.com/</li>
+      </ul>
     </div>
   </main>
 </body>
