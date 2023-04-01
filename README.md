@@ -10,4 +10,4 @@ Repozitorij je sestavljen iz treh komponent oz. aplikacij.
 
 Vsak posamezni projekt se lahko lokalno namesti s pomočjo okolja Node.js.
 
-Struktura celotne seminarske naloge in podrobnejši opis je na voljo v datoteki index.html
+Struktura celotne seminarske naloge in podrobnejši opis je na voljo v datoteki index.html, znotraj katere je umeščen tudi videoposnetek demonstracije sistema.
